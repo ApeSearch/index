@@ -8,8 +8,8 @@ enable_testing()
 
 # set(variable : value), defining useful stuff for later
 set(CMAKE_CXX_STANDARD 17)
-set(CHUNK_BUILD_SRC src/ChunkBuild/ChunkBuild.cpp)
-set(CHUNK_BUILD_H_FILES include/ChunkBuild/*.h)
+set(CHUNK_BUILD_SRC src/ChunkBuilder/ChunkBuilder.cpp)
+set(CHUNK_BUILD_H_FILES include/ChunkBuilder/*.h)
 
 set(CHUNK_BUILDER_SRC drivers/chunkBuilder.cpp)
 

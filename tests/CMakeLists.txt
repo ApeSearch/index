@@ -6,7 +6,7 @@ project(tests)
 # Unit Test Framework Source
 set(UNIT_TEST_SRC ../include/libraries/unit_test_framework/src/unit_test_framework.cpp)
 
-set(CHUNK_BUILD_SRC ../src/ChunkBuild/ChunkBuild.cpp)
+set(CHUNK_BUILD_SRC ../src/ChunkBuilder/ChunkBuilder.cpp)
 
 # Unit Test Sources
 FILE(GLOB BUILDER_TESTS_SRC builder_tests/test_driver.cpp)
