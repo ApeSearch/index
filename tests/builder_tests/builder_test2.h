@@ -1,0 +1,7 @@
+#include "../../include/libraries/unit_test_framework/include/unit_test_framework/unit_test_framework.h"
+#include "../../include/ChunkBuild/ChunkBuild.h"
+
+TEST(test_build2) {
+    ChunkBuild builder;
+    ASSERT_EQUAL(2, 2);
+}
