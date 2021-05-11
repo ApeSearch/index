@@ -1,0 +1,3 @@
+[submodule "include/libraries"]
+	path = include/libraries
+	url = git@github.com:ApeSearch/libraries.git
