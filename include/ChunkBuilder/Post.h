@@ -13,6 +13,7 @@ enum PostingListType {
 };
 
 struct IndexEntry {
+    IndexEntry(std::string _wordIn) : word(_wordIn), attribute(WordAttributeNormal), plType(BodyText) {}
     std::string word;
     WordAttributes attribute;
     PostingListType plType;

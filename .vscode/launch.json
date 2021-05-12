@@ -8,7 +8,7 @@
             "name": "driver",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/driver",
+            "program": "${workspaceFolder}/build/bin/BuilderTest",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

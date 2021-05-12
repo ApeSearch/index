@@ -6,9 +6,18 @@
 
 struct Chunk {
     Chunk() : dict(), urls(), endDocList(dict.Find("%", new DocEndPostingList())) {}
+    Chunk(Chunk* other) {}
+
     hash::HashTable<std::string, PostingList *> dict;
-    APESEARCH::vector<std::string> urls;
+    std::vector<std::string> urls;
     hash::Tuple<std::string, PostingList *> * endDocList;
+};
+
+struct ChunkStats {
+    ChunkStats(int _numDoc, size_t _maxLoc, size_t _maxEst) : numDocuments(_numDoc), maxLocation(_maxLoc), maxEstimatedBytes(_maxEst) {}
+    int numDocuments;
+    size_t maxLocation;
+    size_t maxEstimatedBytes;
 };
 
 // Class which will build up chunks as documents are added
@@ -17,13 +26,28 @@ class ChunkBuilder {
 public:
     ChunkBuilder();
     ~ChunkBuilder();
+    ChunkBuilder(ChunkBuilder*);
 
     void addDocument(std::string &url, const std::vector<IndexEntry> &text, const std::vector<AnchorText> &anchorText);
+    void resetChunk();
+    
+    // Returns an object containing stats about the current chunk in the process of being built
+    ChunkStats getStats() const {
+        return ChunkStats(numDocs, MaximumLocation, upperBoundBytes);
+    }
+
+    // Gets a posting list for a key (word). For tests
+    PostingList* getPostingList(std::string key) {
+        hash::Tuple<std::string, PostingList *> * val = currentChunk->dict.Find(key);
+        return val->value;
+    }
+
+    hash::Tuple<std::string, PostingList *> * getEndDocList() const { return currentChunk->endDocList; }
 
 private:
     size_t addURL(std::string &url, size_t endDocLoc, const std::vector<AnchorText> &anchorText);
 
-    Chunk currentChunk;
+    std::unique_ptr<Chunk> currentChunk;
     
     // Trackers for location numbers and number of documents
     size_t LocationsInIndex, MaximumLocation, numDocs;
