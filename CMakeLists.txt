@@ -6,9 +6,12 @@ cmake_minimum_required(VERSION 3.20.2)
 project(index)
 enable_testing()
 
+file(GLOB CHUNK_BUILD_SRC src/ChunkBuilder/*.cpp)
+
 # set(variable : value), defining useful stuff for later
 set(CMAKE_CXX_STANDARD 17)
-set(CHUNK_BUILD_SRC src/ChunkBuilder/ChunkBuilder.cpp)
+# set(CHUNK_BUILD_SRC src/ChunkBuilder/ChunkBuilder.cpp)
+set(POSTING_LIST_SRC src/ChunkBuilder/PostingList.cpp)
 set(CHUNK_BUILD_H_FILES include/ChunkBuilder/*.h)
 
 set(CHUNK_BUILDER_SRC drivers/chunkBuilder.cpp)
