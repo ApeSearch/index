@@ -99,7 +99,7 @@ size_t ChunkBuilder::addURL(std::string &url, size_t endDocLoc, const std::vecto
 #include "../../include/libraries/HashTable/include/HashTable/HashBlob.h"
 
 uint32_t IndexHT::BytesRequired() {
-    uint32_t bytesRequired = sizeof( IndexBlob );
+    // uint32_t bytesRequired = sizeof( IndexBlob );
     bytesRequired += sizeof( uint32_t ) * dict.table_size( );
 
     APESEARCH::vector< APESEARCH::vector< Bucket< APESEARCH::string, PostingList*> *> > vec = dict.vectorOfBuckets();
