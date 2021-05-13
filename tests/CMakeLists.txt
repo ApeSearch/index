@@ -13,7 +13,6 @@ set(POSTING_LIST_SRC ../src/ChunkBuilder/PostingList.cpp)
 FILE(GLOB BUILDER_TESTS_SRC builder_tests/test_driver.cpp)
 FILE(GLOB SERIALIZE_TESTS_SRC serialize_tests/*.cpp)
 
-
 add_executable(BuilderTest ${BUILDER_TESTS_SRC} ${CHUNK_BUILD_SRC} ${POSTING_LIST_SRC} ${UNIT_TEST_SRC})
 add_test(NAME builder_test COMMAND BuilderTest)
 
@@ -22,5 +21,5 @@ add_test(NAME builder_test COMMAND BuilderTest)
 
 # Creates a make check command that runs 'test' and requires the "DEPENDS" parameters to be compiled first
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}
-                  DEPENDS BuilderTest SerializerTest
+                 DEPENDS BuilderTest 
                 )

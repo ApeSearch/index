@@ -43,6 +43,7 @@ public:
     }
 
     hash::Tuple<std::string, PostingList *> * getEndDocList() const { return currentChunk->endDocList; }
+    uint32_t BytesRequired();
 
 private:
     size_t addURL(std::string &url, size_t endDocLoc, const std::vector<AnchorText> &anchorText);
@@ -59,6 +60,7 @@ private:
     size_t bytes;
     bool calcBytes;
 
+    // TODO: double check these sizes so upper bound is calculated correctly
     int POST_BYTES_UPPER = 16;
     int ENDDOC_BYTES_UPPER = 8;
     size_t MaxBytesRequired() const { return MaximumLocation * POST_BYTES_UPPER + numDocs * ENDDOC_BYTES_UPPER; }

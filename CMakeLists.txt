@@ -15,9 +15,10 @@ set(POSTING_LIST_SRC src/ChunkBuilder/PostingList.cpp)
 set(CHUNK_BUILD_H_FILES include/ChunkBuilder/*.h)
 
 set(CHUNK_BUILDER_SRC drivers/chunkBuilder.cpp)
+set(DELTA include/libraries/AS/include/AS/delta.h)
 
 # add the tests subdirectory (also a CMake project, everything is a project)
 add_subdirectory(tests bin)
 
 # add_executable(ChunkBuild ${CHUNK_BUILD_SRC})
-add_executable(driver ${CHUNK_BUILDER_SRC} ${CHUNK_BUILD_SRC})
+add_executable(driver ${CHUNK_BUILDER_SRC} ${CHUNK_BUILD_SRC} ${DELTA})

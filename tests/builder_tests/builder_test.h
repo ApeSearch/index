@@ -4,24 +4,11 @@
 #include <memory>
 
 std::vector<std::string> document1 = {
-    "pig",
-    "the",
-    "cow",
-    "the",
-    "pig",
-    "and",
-    "all",
-    "of",
-    "the",
-    "animals",
+    "pig", "the", "cow", "the", "pig", "and", "all", "of", "the", "animals",
 };
 
 std::vector<std::string> document2 = {
-    "this",
-    "is",
-    "a",
-    "and",
-    "test",
+    "this", "is", "a", "and", "test",
 };
 
 std::vector<std::string> document3 = {
@@ -37,7 +24,14 @@ std::vector<std::string> document5 = {
 };
 
 std::vector<std::string> document6 = {
-    "the", "home", "depot", "is", "a", "hardware", "store"
+    "the", "home", "depot", "is", "a", "hardware", "store", "canada", "geese", "moab", "utah", "desert"
+};
+
+std::vector<std::string> document7 = {
+    "the", "home", "depot", "is", "a", "hardware", "store", "hello", "here", "is", "an", "entire", "new", "doc", 
+    "these", "are", "more", "friends", "romans", "google", "search", "is", "a", "bit", "back", "in", "game", "of", "thrones"
+    "the", "home", "depot", "is", "a", "hardware", "the", "home", "depot", "is", "a", "hardware", "store", "yeet"
+    
 };
 
 std::vector<std::string> urls = {
@@ -74,7 +68,7 @@ std::unique_ptr<ChunkBuilder> buildSmallIndex(bool print) {
 
 std::unique_ptr<ChunkBuilder> buildMediumIndex(bool print) {
     std::unique_ptr<ChunkBuilder> index = std::make_unique<ChunkBuilder>();
-    std::vector<std::vector<std::string>> words = {document1, document2, document3, document4, document5, document6};
+    std::vector<std::vector<std::string>> words = {document1, document2, document3, document4, document5, document6, document7};
     std::vector<std::vector<IndexEntry>> documents = documentListBuilder(words);
 
     std::vector<AnchorText> aText;
@@ -116,5 +110,7 @@ TEST(test_locations) {
 
 TEST(test_medium_index) {
     std::unique_ptr<ChunkBuilder> index = std::move(buildMediumIndex(false));
+    ASSERT_TRUE(index != nullptr);
+    std::cout << index->BytesRequired() << " " << index->getStats().maxEstimatedBytes << std::endl;
 }
 

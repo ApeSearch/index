@@ -96,28 +96,32 @@ size_t ChunkBuilder::addURL(std::string &url, size_t endDocLoc, const std::vecto
     return documentStart;
 }
 
-#include "../../include/libraries/HashTable/include/HashTable/HashBlob.h"
+// #include "../../include/libraries/HashTable/include/HashTable/HashBlob.h"
 
-uint32_t IndexHT::BytesRequired() {
+uint32_t ChunkBuilder::BytesRequired() {
+    if ( calcBytes )
+        return bytes; 
     // uint32_t bytesRequired = sizeof( IndexBlob );
-    bytesRequired += sizeof( uint32_t ) * dict.table_size( );
+    uint32_t bytesRequired = sizeof( uint32_t ) * currentChunk->dict.table_size( );
 
-    APESEARCH::vector< APESEARCH::vector< Bucket< APESEARCH::string, PostingList*> *> > vec = dict.vectorOfBuckets();
-    std::cout << "BytesRequired" << std::endl;
+    std::vector< std::vector< hash::Bucket< std::string, PostingList*> *> > vec = currentChunk->dict.vectorOfBuckets();
+
     for(size_t index = 0; index < vec.size(); ++index){
         for(size_t sameChain = 0; sameChain < vec[index].size(); ++sameChain){
-            
-            hash::Bucket<APESEARCH::string, PostingList*> * bucket = vec[index][sameChain];
-            bytesRequired += bucket->tuple.value->bytesRequired(bucket->tuple.key);
+           hash::Bucket<std::string, PostingList*> * bucket = vec[index][sameChain];
+           bytesRequired += bucket->tuple.value->bytesRequired(bucket->tuple.key);
         }
-        bytesRequired += sizeof( uint32_t ); // Signifies end of the chained posting lists...
+
+        // Signifies end of the chained posting lists...
+        bytesRequired += sizeof( uint32_t ); 
     }
 
     // Bytes for the url vector
-    for(size_t i = 0; i < urls.size(); ++i)
-        bytesRequired += urls[i].size() + 1;
+    for(size_t i = 0; i < currentChunk->urls.size(); ++i)
+       bytesRequired += currentChunk->urls[i].size() + 1;
 
     calcBytes = true;
     bytes = bytesRequired;
-    return 0;
+
+    return bytes;
 }
